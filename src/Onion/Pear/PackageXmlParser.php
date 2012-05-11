@@ -46,8 +46,8 @@ class PackageXmlParser
                     $dirpath .= $dirname;
 
                 // $dirpath = $parentPath ? $parentPath . DIRECTORY_SEPARATOR . $dirname : $dirname;
-                if( $baseInstallDir )
-                    $dirpath .= $baseInstallDir . DIRECTORY_SEPARATOR;
+                // if( $baseInstallDir )
+                //     $dirpath .= $baseInstallDir . DIRECTORY_SEPARATOR;
 
                 if( $dirname != '/' )
                     $dirpath .= DIRECTORY_SEPARATOR;
@@ -63,14 +63,13 @@ class PackageXmlParser
                 $md5sum         = (string) @$node['md5sum'];
 
                 $file = null;
-                if( $baseInstallDir ) {
-                    $file = new PackageXml\ContentFile( $parentPath . $baseInstallDir . DIRECTORY_SEPARATOR . $filename );
+                $file = new PackageXml\ContentFile( $parentPath . $filename );
+                if( $installAs ) {
+                    $file->installAs = $parentPath . $installAs;
                 }
                 else {
-                    $file = new PackageXml\ContentFile( $parentPath . $filename );
+                    $file->installAs = $parentPath . $baseInstallDir . DIRECTORY_SEPARATOR . $filename;
                 }
-                if( $installAs )
-                    $file->installAs = $parentPath . $installAs;
 
                 $file->role = $role;
                 $file->md5sum = $md5sum;

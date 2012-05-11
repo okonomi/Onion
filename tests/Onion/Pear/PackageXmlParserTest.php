@@ -13,6 +13,18 @@ namespace tests\Onion\Pear;
 class PackageXmlParserTest extends \PHPUnit_Framework_TestCase 
 {
 
+    function test3()
+    {
+        $p = new \Onion\Pear\PackageXmlParser( 'tests/data/package_xml/XML_Util/package.xml' );
+        ok( $p );
+        $list = $p->getContentFiles();
+        ok( $list ); 
+        ok( $list = $p->getContentFilesByRole( 'php' ));
+        foreach( $list as $file ) {
+            is('Util.php', $file->file);
+        }
+    }
+
     function test2()
     {
         $p = new \Onion\Pear\PackageXmlParser( 'tests/data/package_xml/Twig/package.xml' );
