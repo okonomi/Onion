@@ -67,7 +67,12 @@ class PearInstaller
 
 
         // parse package.xml
-        $parser = new \Onion\Pear\PackageXmlParser( $packageDir . DIRECTORY_SEPARATOR . 'package.xml' );
+        if( file_exists($packageDir . DIRECTORY_SEPARATOR . 'package2.xml') ) {
+            $parser = new \Onion\Pear\PackageXmlParser( $packageDir . DIRECTORY_SEPARATOR . 'package2.xml' );
+        }
+        else {
+            $parser = new \Onion\Pear\PackageXmlParser( $packageDir . DIRECTORY_SEPARATOR . 'package.xml' );
+        }
 
         // build file list, separate by roles
         $contentFiles = $parser->getContentFiles();
